@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: danielchowyc/nodejs_sample_app
+        env:
+        - name: DB_HOST
+          value: "mongodb://mongodb-svc:27017/posts"
+        ports:
+        - containerPort: 3000
